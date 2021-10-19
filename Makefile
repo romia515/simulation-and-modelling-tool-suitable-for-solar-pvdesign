@@ -1,72 +1,15 @@
-ifdef SystemRoot
-	RM = del /Q
-	EXT = dll
-	JNILIB = SSCAPIJNI.dll
-	ifneq (,$(findstring 64, $(value PROCESSOR_IDENTIFIER)))
-		BITS = 64
-		CCCOMP = c:/MinGW64/bin/gcc.exe
-#Update based on your Java installation location		
- 		CIFLAGS = -Wl,--kill-at -I"C:\Program Files\Java\jdk1.7.0_71\include"  -I"C:\Program Files\Java\jdk1.7.0_71\include\win32"
-		JC = C:\Program Files\Java\jdk1.7.0_71\bin\javac.exe
-		JAR = C:\Program Files\Java\jdk1.7.0_71\bin\jar.exe
-		JAVA = C:\Program Files\Java\jdk1.7.0_71\bin\java.exe
-		SSCLIB = ssc.dll
-	else
-		BITS = 32
-		CCCOMP = c:/MinGW/bin/gcc.exe
-#Update based on your Java installation location		
-		CIFLAGS = -Wl,--kill-at -I"C:\Program Files(x86)\Java\jdk1.7.0_71\include"  -I"C:\Program Files(x86)\Java\jdk1.7.0_71\include\win32"
-		JC = C:\Program Files (x86)\Java\jdk1.7.0_71\bin\javac.exe
-		JAR = C:\Program Files (x86)\Java\jdk1.7.0_71\bin\jar.exe
-		JAVA = C:\Program Files (x86)\Java\jdk1.7.0_71\bin\java.exe
-		SSCLIB = ssc.dll
-	endif	
-else
-    PF = $(shell uname)
-    ifneq (,$(findstring Darwin, $(PF)))
-        VERS = $(shell sw_vers -productVersion)
-#Update based on your Java installation location
-        CIFLAGS = -I/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/include -I/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/include/darwin
-        SSCLIB = ./ssc.dylib
-        EXT = dylib
-        JNILIB = libSSCAPIJNI.jnilib
-        ifneq (,$(findstring 10.8, $(VERS) ))
-            CIFLAGS = -I/System/Library/Frameworks/JavaVM.framework/Versions/Current/Headers -I/System/Library/Frameworks/JavaVM.framework/Headers
-	    SSCLIB = ssc.dylib
-	    EXT = dylib
-	    JNILIB = libSSCAPIJNI.jnilib
-	else
-            ifneq (,$(findstring 10.7, $(VERS) ))
-                CIFLAGS = -I/System/Library/Frameworks/JavaVM.framework/Versions/Current/Headers -I/System/Library/Frameworks/JavaVM.framework/Headers
-	        SSCLIB = ssc.dylib
-	        EXT = dylib
-	        JNILIB = libSSCAPIJNI.jnilib
-	    else
-                ifneq (,$(findstring 10.6, $(VERS)))
-	            CIFLAGS = -I/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Headers -I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
-                    SSCLIB = ssc.dylib
-	            EXT = dylib
-	            JNILIB = libSSCAPIJNI.jnilib
-	        endif
-	    endif
-    	endif
-    else 
-        ifneq (,$findstring(Linux, $(PF)))
-	    CIFLAGS = -I/usr/java/default/include -I/usr/java/default/include/linux -fPIC 
-	    SSCLIB = ./ssc.so
-	    EXT = so
-	    JNILIB = libSSCAPIJNI.so
-	    LIBPATH = -Djava.library.path=.
-    	endif
-    endif
-    RM = rm -f
-    CFLAGS += -D__64BIT__
-    BITS = 64l
-    JC = javac
-    JAR = jar
-    JAVA = java
-    CCCOMP = gcc
-endif
+RM = del /Q
+EXT = dll
+JNILIB = SSCAPIJNI.dll
+BITS = 64
+CCCOMP = C:/msys64/mingw64/bin/gcc.exe
+
+CIFLAGS = -Wl,--kill-at -I"C:\Java\jdk-11.0.11\include"  -I"C:\Java\jdk-11.0.11\include\win32"
+JC = C:\Java\jdk-11.0.11\bin\javac.exe
+JAR = C:\Java\jdk-11.0.11\bin\jar.exe
+JAVA = C:\Java\jdk-11.0.11\bin\java.exe
+SSCLIB = ssc.dll
+
 RM_JAVA = *.class  *.jar 
 RM_ALL =  $(JNILIB)
 PROJ_NAME =  untitled
