@@ -63,7 +63,10 @@ public class untitled
 	}
 
 	public static void main(String[] args) {
+		System.loadLibrary("SSCAPIJNI");
+
 		final String currentDirectory = System.getProperty("user.dir");
+
 		System.load(currentDirectory + "\\ssc.dll");
 
 		System.out.printf("Current folder = %s\n", currentDirectory);
@@ -75,7 +78,7 @@ public class untitled
 
 		SSCAPIJNI.ssc_data_set_number(data, "en_belpe", 0f);
 		set_array(data, "load", currentDirectory + "\\load.csv", 8760);
-		SSCAPIJNI.ssc_data_set_string(data, "solar_resource_file", "C:/SAM/2020.11.29/solar_resource/phoenix_az_33.450495_-111.983688_psmv3_60_tmy.csv");
+		SSCAPIJNI.ssc_data_set_string(data, "solar_resource_file", currentDirectory + "\\phoenix_az_33.450495_-111.983688_psmv3_60_tmy.csv");
 		SSCAPIJNI.ssc_data_set_number(data, "floor_area", 2000f);
 		SSCAPIJNI.ssc_data_set_number(data, "Stories", 2f);
 		SSCAPIJNI.ssc_data_set_number(data, "YrBuilt", 1980f);
@@ -740,6 +743,7 @@ public class untitled
 		SSCAPIJNI.ssc_module_free(mod);
 		double[] annual_energy = {0.0f};
 		SSCAPIJNI.ssc_data_get_number(data, "annual_energy", annual_energy);
+
 		System.out.println("Annual energy (year 1) = " + annual_energy[0]);
 		double[] capacity_factor = {0.0f};
 		SSCAPIJNI.ssc_data_get_number(data, "capacity_factor", capacity_factor);

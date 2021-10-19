@@ -1,9 +1,5 @@
 public class SSCAPIJNI {
 
-    static {
-        System.loadLibrary("SSCAPIJNI");
-    }
-
     public static native int ssc_version();
 
     public static native String ssc_build_info();
